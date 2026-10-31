@@ -69,14 +69,14 @@ function sway(el, i) {                  // side-to-side drift, tilt and a gentle
   gsap.fromTo(el, { xPercent: -40, rotation: -6 }, { xPercent: 40, rotation: 6, duration: 3 + i * .7, ease: 'sine.inOut', yoyo: true, repeat: -1 });
   gsap.fromTo(el, { scale: .92 }, { scale: 1.06, duration: 4 + i * .5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 }
-for (let i = 0; i < 3; i++) {
-  const el = makeLantern(i), x = W * (.15 + i * .32);
-  gsap.set(el, { x, y: H * (.25 + i * .22) });
-  if (!reduce) { rise(el, i, H * (.25 + i * .22)); sway(el, i); }
+for (let i = 0; i < 6; i++) {
+  const el = makeLantern(i), y0 = H * (.1 + (i * .17) % .8);
+  gsap.set(el, { x: W * (.06 + i * .16), y: y0 });
+  if (!reduce) { rise(el, i, y0); sway(el, i); }
 }
 function launchFromCard() {             // lanterns emerge from the opened card
   const r = $('#card').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .4;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 8; i++) {
     const el = lanterns[i] || makeLantern(i);
     gsap.killTweensOf(el);
     gsap.set(el, { x: cx - el.offsetWidth / 2, y: cy, xPercent: 0, rotation: 0, scale: .2, opacity: 0 });
@@ -96,6 +96,7 @@ function openInvitation() {
   const tl = gsap.timeline();
   tl.to('#intro', { opacity: 0, duration: 1, onComplete: () => $('#intro').style.display = 'none' })
     .set('#stage', { visibility: 'visible' }, .3)
+    .to('#diyas', { opacity: 1, duration: 1.5 }, 1.5)
     .fromTo('#card', { scale: .7, y: 40, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 1.1, ease: 'power3.out' }, .4)
     .to('.cover', { rotateY: -170, duration: 1.8, ease: 'power2.inOut' }, 1.5)
     .add(() => { if (!reduce) launchFromCard(); fireOn = true; }, 1.9)
