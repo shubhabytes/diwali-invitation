@@ -8,7 +8,7 @@
 const CONFIG = {
   date: 'Saturday, 7th November 2026',
   time: '6:00 PM onwards',
-  venue: '61B Inchara',
+  venue: '61B Inchara,3rd floor',
   address: '4th cross Kothnoor Dinne',
   rsvpBy: 'Kindly RSVP by 3rd November',
   rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbyaBWhj19LaxsXjFtxuGt8qbvIqLeKzYxz3jP72y3gg5TqQU3iilkl-b-yRdIxEWMoZeA/exec',                         // later: paste your Google Apps Script / Firebase URL
