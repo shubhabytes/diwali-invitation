@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diwali Invitation </title>
+<meta name="theme-color" content="#1A0209">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- STAGE 1: opening screen -->
+<section id="intro" aria-label="Opening screen">
+  <div class="frame"></div>
+  <div class="intro-text">
+    <p class="kicker">✨ A FESTIVE SURPRISE AWAITS ✨</p>
+    <h1>Celebrate the Festival of Lights</h1>
+    <p class="hint">Tap anywhere to open your invitation</p>
+    <button id="openBtn" class="gold-btn" type="button">OPEN INVITATION</button>
+  </div>
+  <div class="diya left"><i class="flame"></i></div>
+  <div class="diya right"><i class="flame"></i></div>
+</section>
+
+<!-- STAGE 2: the invitation card -->
+<main id="stage">
+  <div id="card">
+    <div class="inner">
+      <span class="mari tl"></span><span class="mari tr"></span>
+      <p class="pre">LIGHT UP THE NIGHT WITH US THIS</p>
+      <h2 class="title">DIWALI</h2>
+      <p class="lead">Let's celebrate with good food,<br>joyful music and sparkling moments together!</p>
+
+      <div class="when">
+        <span class="lbl">DATE</span><strong data-k="date"></strong>
+        <span class="lbl">TIME</span><strong data-k="time"></strong>
+      </div>
+      <p class="lbl">VENUE</p><p class="val" data-k="venue"></p>
+      <p class="lbl">ADDRESS</p><p class="val small" data-k="address"></p>
+      <p class="rsvpby" data-k="rsvpBy"></p>
+
+      <div class="rsvp">
+        <p class="ask">Will you be joining us?</p>
+        <input id="guestName" type="text" placeholder="Your name" maxlength="40" autocomplete="name">
+        <button type="button" data-c="yes">Yes, I'll be there!</button>
+        <button type="button" data-c="maybe">Maybe, I'll confirm soon.</button>
+        <button type="button" data-c="no">Sorry, can't make it.</button>
+        <p id="thanks" role="status" aria-live="polite"></p>
+      </div>
+      <button id="copyBtn" class="ghost-btn" type="button">Copy invitation to share</button>
+
+      <svg class="sweets" viewBox="0 0 200 54" aria-hidden="true">
+        <defs><radialGradient id="g" cx="35%" cy="30%"><stop offset="0" stop-color="#FFE29A"/><stop offset=".6" stop-color="#FF9F1C"/><stop offset="1" stop-color="#A8540F"/></radialGradient></defs>
+        <ellipse cx="100" cy="44" rx="86" ry="8" fill="#D4AF37"/><ellipse cx="100" cy="41" rx="80" ry="6" fill="#8a6a16"/>
+        <g fill="url(#g)"><circle cx="58" cy="32" r="11"/><circle cx="80" cy="28" r="12"/><circle cx="104" cy="26" r="13"/><circle cx="128" cy="29" r="12"/><circle cx="148" cy="33" r="11"/><circle cx="93" cy="14" r="11"/><circle cx="117" cy="14" r="11"/></g>
+      </svg>
+    </div>
+    <div class="cover"><span class="star">✦</span><span class="cv-t">You are invited</span><span class="star">✦</span></div>
+  </div>
+</main>
+
+<div id="lanterns"></div>
+<button id="music" type="button" aria-label="Toggle music" hidden>🔇</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
