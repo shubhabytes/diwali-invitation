@@ -17,15 +17,17 @@ const CONFIG = {
 };
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const lite = innerWidth < 700 || matchMedia('(pointer: coarse)').matches;
+document.documentElement.classList.toggle('lite', lite);
 $$('[data-k]').forEach(e => e.textContent = CONFIG[e.dataset.k]);
 
 /* ---------- 2. Canvas: golden dust, sparkles, fireworks ---------- */
-const C = $('#fx'), X = C.getContext('2d'), dpr = Math.min(devicePixelRatio || 1, 2);
+const C = $('#fx'), X = C.getContext('2d'), dpr = lite ? 1 : Math.min(devicePixelRatio || 1, 2);
 let W, H, raf, fireOn = false, nextFire = 0;
 const parts = [], COLORS = ['#FFC857', '#D4AF37', '#FF9F1C', '#FFF0CC'];
 function resize() { W = innerWidth; H = innerHeight; C.width = W * dpr; C.height = H * dpr; X.setTransform(dpr, 0, 0, dpr, 0, 0); }
 resize(); addEventListener('resize', resize);
-const dust = Array.from({ length: reduce ? 18 : 55 }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.8 + .4, v: Math.random() * .3 + .1, p: Math.random() * 6 }));
+const dust = Array.from({ length: reduce ? 18 : (lite ? 20 : 55) }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.8 + .4, v: Math.random() * .3 + .1, p: Math.random() * 6 }));
 function burst(x, y, n, speed, alpha) {
   for (let i = 0; i < n; i++) {
     const a = Math.random() * 6.283, s = Math.random() * speed;
@@ -40,7 +42,7 @@ function loop(t) {
     X.globalAlpha = .35 + .35 * Math.sin(t / 700 + d.p); X.fillStyle = '#FFC857';
     X.beginPath(); X.arc(d.x, d.y, d.r, 0, 6.283); X.fill();
   }
-  if (fireOn && !reduce && t > nextFire) { burst(W * (.1 + Math.random() * .8), H * (.1 + Math.random() * .4), 34, 2.3, .65); nextFire = t + 2400 + Math.random() * 2800; }
+  if (fireOn && !reduce && t > nextFire) { burst(W * (.1 + Math.random() * .8), H * (.1 + Math.random() * .4), lite ? 16 : 34, 2.3, .65); nextFire = t + 2400 + Math.random() * 2800; }
   for (let i = parts.length - 1; i >= 0; i--) {
     const p = parts[i]; p.x += p.vx; p.y += p.vy; p.vy += .03; p.vx *= .98; p.l -= p.f;
     if (p.l <= 0) { parts.splice(i, 1); continue; }
@@ -68,16 +70,16 @@ function rise(el, i, fromY) {           // endless loop: rise, wrap to bottom at
 }
 function sway(el, i) {                  // side-to-side drift, tilt and a gentle scale breathe
   gsap.fromTo(el, { xPercent: -40, rotation: -6 }, { xPercent: 40, rotation: 6, duration: 3 + i * .7, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-  gsap.fromTo(el, { scale: .92 }, { scale: 1.06, duration: 4 + i * .5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+  if (!lite) gsap.fromTo(el, { scale: .92 }, { scale: 1.06, duration: 4 + i * .5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 }
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < (lite ? 3 : 6); i++) {
   const el = makeLantern(i), y0 = H * (.1 + (i * .17) % .8);
   gsap.set(el, { x: W * (.06 + i * .16), y: y0 });
   if (!reduce) { rise(el, i, y0); sway(el, i); }
 }
 function launchFromCard() {             // lanterns emerge from the opened card
   const r = $('#card').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .4;
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < (lite ? 4 : 8); i++) {
     const el = lanterns[i] || makeLantern(i);
     gsap.killTweensOf(el);
     gsap.set(el, { x: cx - el.offsetWidth / 2, y: cy, xPercent: 0, rotation: 0, scale: .2, opacity: 0 });
