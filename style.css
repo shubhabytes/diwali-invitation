@@ -74,3 +74,12 @@ h1{font-size:clamp(2.2rem,9vw,4.2rem);line-height:1.08;font-weight:700;color:var
 #music.off{opacity:.5}
 :focus-visible{outline:2px solid var(--warm);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.flame,.lantern i,.gold-btn{animation:none}}
+/* Diyas along the bottom edge of the invitation screen */
+#diyas{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0}
+#diyas .diya{position:absolute;bottom:18px}
+#diyas .d1{left:3%}#diyas .d2{left:14%}
+#diyas .d3{right:14%}#diyas .d4{right:3%}
+@media (max-width:600px){
+  #diyas .d2,#diyas .d3{display:none}   /* keep phones uncluttered */
+  #diyas .diya{transform:scale(.7)}
+}
