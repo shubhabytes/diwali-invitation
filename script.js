@@ -133,12 +133,4 @@ $$('.rsvp button').forEach(b => b.addEventListener('click', () => {
   const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2, 30, 2.4, 1);
   submitRsvp(b.dataset.c, name).catch(err => console.warn('RSVP failed', err));
 }));
-
-/* ---------- 7. Copy invitation ---------- */
-$('#copyBtn').addEventListener('click', async () => {
-  const txt = `🪔 Diwali Invitation 🪔\nLet's celebrate with good food, joyful music and sparkling moments!\n\nDate: ${CONFIG.date}\nTime: ${CONFIG.time}\nVenue: ${CONFIG.venue}\nAddress: ${CONFIG.address}\n${CONFIG.rsvpBy}\n\n${location.href}`;
-  try { await navigator.clipboard.writeText(txt); }
-  catch { const a = document.createElement('textarea'); a.value = txt; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); }
-  const b = $('#copyBtn'); b.textContent = 'Copied! ✓'; setTimeout(() => b.textContent = 'Copy invitation to share', 2000);
-});
 })();
