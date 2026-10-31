@@ -83,3 +83,11 @@ h1{font-size:clamp(2.2rem,9vw,4.2rem);line-height:1.08;font-weight:700;color:var
   #diyas .d2,#diyas .d3{display:none}   /* keep phones uncluttered */
   #diyas .diya{transform:scale(.7)}
 }
+/* Lite mode for phones: cheaper glows, fewer animated shadows */
+.lite .lantern i{box-shadow:0 0 14px 4px rgba(255,159,28,.45);animation:none}
+.lite .lantern i::after{display:none}
+.lite .flame{box-shadow:none;animation-duration:.3s}
+.lite .diya{box-shadow:none}
+.lite .gold-btn{animation:none}
+.lite #card{box-shadow:0 0 24px rgba(255,159,28,.25)}
+.lite .when{box-shadow:none}
